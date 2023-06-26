@@ -9,10 +9,10 @@
       "windows"
     ]
   },
-  "homepage": "https://github.com/mi-corporation/cordova-plugin-oidc-basic",
+  "homepage": "https://github.com/dedastealth/cordova-plugin-oidc-basic",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mi-corporation/cordova-plugin-oidc-basic.git"
+    "url": "git+https://github.com/dedastealth/cordova-plugin-oidc-basic.git"
   },
   "keywords": [
     "openid connect",

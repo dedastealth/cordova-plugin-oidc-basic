@@ -52,18 +52,18 @@ To successfully receive redirects on all platforms, your `redirectUrl` must adhe
 
     To use a custom URL scheme, e.g. `com.example.myapp`, use the `ANDROID_REDIRECT_SCHEME` variable, e.g.
     ```
-    cordova plugin add https://github.com/mi-corporation/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_SCHEME=com.example.myapp
+    cordova plugin add https://github.com/dedastealth/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_SCHEME=com.example.myapp
     ```
     To use an [app link](https://developer.android.com/training/app-links) for
     Android M and above, set the `ANDROID_REDIRECT_DATA_ELEMENT` variable to the matching XML `<data>`
     element. Make sure to escape this XML appropriately for whatever command shell you're using. E.g.
     if your app link is `https://myapp.example.com/oidc_redirect` and you're using zsh/bash/etc, do
     ```
-    cordova plugin add https://github.com/mi-corporation/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_DATA_ELEMENT="<data android:scheme=\"https\" android:host=\"myapp.example.com\" android:path=\"/oidc_redirect\" />"
+    cordova plugin add https://github.com/dedastealth/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_DATA_ELEMENT="<data android:scheme=\"https\" android:host=\"myapp.example.com\" android:path=\"/oidc_redirect\" />"
     ```
     Or on a Windows command prompt, do
     ```
-    cordova plugin add https://github.com/mi-corporation/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_DATA_ELEMENT="<data android:scheme=""https"" android:host=""myapp.example.com"" android:path=""/oidc_redirect"" />"
+    cordova plugin add https://github.com/dedastealth/cordova-plugin-oidc-basic.git --variable ANDROID_REDIRECT_DATA_ELEMENT="<data android:scheme=""https"" android:host=""myapp.example.com"" android:path=""/oidc_redirect"" />"
     ```
     All `<data>` element attributes are supported. See https://developer.android.com/guide/topics/manifest/data-element
 - For Windows, the `redirectUrl` can be any URL. No preregistration of your `redirectUrl`
