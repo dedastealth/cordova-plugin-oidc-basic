@@ -190,10 +190,10 @@ public class OIDCBasic extends CordovaPlugin {
         // for the tokenEndpoint.
         AuthorizationServiceConfiguration config = new AuthorizationServiceConfiguration(authorizationEndpoint, authorizationEndpoint);
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
-                config,
-                reqParams.getString(CLIENT_ID_PARAM),
-                reqParams.getString(RESPONSE_TYPE_PARAM),
-                Uri.parse(reqParams.getString(REDIRECT_URL_PARAM))
+            config,
+            reqParams.getString(CLIENT_ID_PARAM),
+            reqParams.getString(RESPONSE_TYPE_PARAM),
+            Uri.parse(reqParams.getString(REDIRECT_URL_PARAM))
         );
         // If JS passed in state, use that, otherwise keep the random state value that
         // the AuthorizationRequest.Builder constructor generates automatically.
@@ -202,32 +202,32 @@ public class OIDCBasic extends CordovaPlugin {
         }
         JSONObject rawAdditionalParams = reqParams.optJSONObject(ADDITIONAL_PARAMETERS_PARAM);
         return builder
-                .setScope(reqParams.getString(SCOPE_PARAM))
-                // display, loginHint, prompt, and responseMode -- We treat these as
-                // additionalParameters, but AppAuth has dedicated properties for these and
-                // throws if you try to set them as additionalParameters. Extract value from
-                // passed-in additionalParameters, if any.
-                .setDisplay(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_DISPLAY_PARAM))
-                .setLoginHint(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_LOGIN_HINT_PARAM))
-                .setPrompt(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_PROMPT_PARAM))
-                .setResponseMode(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_RESPONSE_MODE_PARAM))
-                .setAdditionalParameters(toAppAuthAdditionalParams(rawAdditionalParams, BLACKLISTED_AUTH_REQ_ADDITIONAL_PARAMS))
-                .build();
+            .setScope(reqParams.getString(SCOPE_PARAM))
+            // display, loginHint, prompt, and responseMode -- We treat these as
+            // additionalParameters, but AppAuth has dedicated properties for these and
+            // throws if you try to set them as additionalParameters. Extract value from
+            // passed-in additionalParameters, if any.
+            .setDisplay(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_DISPLAY_PARAM))
+            .setLoginHint(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_LOGIN_HINT_PARAM))
+            .setPrompt(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_PROMPT_PARAM))
+            .setResponseMode(rawAdditionalParams == null ? null : readNullableString(rawAdditionalParams, ADDITIONAL_PARAMETERS_RESPONSE_MODE_PARAM))
+            .setAdditionalParameters(toAppAuthAdditionalParams(rawAdditionalParams, BLACKLISTED_AUTH_REQ_ADDITIONAL_PARAMS))
+            .build();
     }
 
     private static final String[] BLACKLISTED_AUTH_REQ_ADDITIONAL_PARAMS = {
-            "scope",
-            "response_type",
-            "client_id",
-            "redirect_uri",
-            "state",
-            QUERY_KEY_NONCE,
-            "code_challenge",
-            "code_challenge_method",
-            ADDITIONAL_PARAMETERS_DISPLAY_PARAM,
-            ADDITIONAL_PARAMETERS_LOGIN_HINT_PARAM,
-            ADDITIONAL_PARAMETERS_PROMPT_PARAM,
-            ADDITIONAL_PARAMETERS_RESPONSE_MODE_PARAM
+        "scope",
+        "response_type",
+        "client_id",
+        "redirect_uri",
+        "state",
+        QUERY_KEY_NONCE,
+        "code_challenge",
+        "code_challenge_method",
+        ADDITIONAL_PARAMETERS_DISPLAY_PARAM,
+        ADDITIONAL_PARAMETERS_LOGIN_HINT_PARAM,
+        ADDITIONAL_PARAMETERS_PROMPT_PARAM,
+        ADDITIONAL_PARAMETERS_RESPONSE_MODE_PARAM
     };
 
     private class AuthorizationRequestFlow extends ExternalUserAgentFlow {
@@ -302,31 +302,31 @@ public class OIDCBasic extends CordovaPlugin {
     private JSONObject jsonForSuccessEndSessionResponse(EndSessionResponse response) throws JSONException {
         JSONObject request = jsonForReturnedEndSessionRequest(response.request);
         return new JSONObject()
-                .put("request",                request)
-                .put("state",                  jsonForNullable(response.state));
+            .put("request",                request)
+            .put("state",                  jsonForNullable(response.state));
     }
 
     private JSONObject jsonForReturnedEndSessionRequest(EndSessionRequest request) throws JSONException {
         if (request == null) return null;
         return new JSONObject()
-                .put("idTokenHint",               jsonForNullable(request.idTokenHint))
-                .put("postLogoutRedirectUrl",     jsonForNullable(request.postLogoutRedirectUri))
-                .put("state",                     jsonForNullable(request.state))
-                .put("additionalParameters",      jsonForMap(request.additionalParameters));
+            .put("idTokenHint",               jsonForNullable(request.idTokenHint))
+            .put("postLogoutRedirectUrl",     jsonForNullable(request.postLogoutRedirectUri))
+            .put("state",                     jsonForNullable(request.state))
+            .put("additionalParameters",      jsonForMap(request.additionalParameters));
 
     }
 
     private JSONObject jsonForSuccessfulAuthorizationResponse(AuthorizationResponse response) throws JSONException {
         return new JSONObject()
-                .put("request",                      jsonForNullable(jsonForReturnedAuthorizationRequest(response.request)))
-                .put("authorizationCode",            jsonForNullable(response.authorizationCode))
-                .put("state",                        jsonForNullable(response.state))
-                .put("accessToken",                  jsonForNullable(response.accessToken))
-                .put("accessTokenExpirationDate",    jsonForNullable(response.accessTokenExpirationTime))
-                .put("tokenType",                    jsonForNullable(response.tokenType))
-                .put("idToken",                      jsonForNullable(response.idToken))
-                .put("scope",                        jsonForNullable(response.scope))
-                .put("additionalParameters",         jsonForMap(response.additionalParameters));
+            .put("request",                      jsonForNullable(jsonForReturnedAuthorizationRequest(response.request)))
+            .put("authorizationCode",            jsonForNullable(response.authorizationCode))
+            .put("state",                        jsonForNullable(response.state))
+            .put("accessToken",                  jsonForNullable(response.accessToken))
+            .put("accessTokenExpirationDate",    jsonForNullable(response.accessTokenExpirationTime))
+            .put("tokenType",                    jsonForNullable(response.tokenType))
+            .put("idToken",                      jsonForNullable(response.idToken))
+            .put("scope",                        jsonForNullable(response.scope))
+            .put("additionalParameters",         jsonForMap(response.additionalParameters));
     }
 
     // We return the request back to JS b/c AppAuth populates additional params on the request that calling
@@ -334,16 +334,16 @@ public class OIDCBasic extends CordovaPlugin {
     private JSONObject jsonForReturnedAuthorizationRequest(AuthorizationRequest request) throws JSONException {
         if (request == null) return null;
         return new JSONObject()
-                .put("responseType",               jsonForNullable(request.responseType))
-                .put("clientId",                   jsonForNullable(request.clientId))
-                .put("scope",                      jsonForNullable(request.scope))
-                .put("redirectUrl",                jsonForNullable(request.redirectUri == null ? null : request.redirectUri.toString()))
-                .put("state",                      jsonForNullable(request.state))
-                .put("nonce",                      jsonForNullable(request.nonce))
-                .put("codeVerifier",               jsonForNullable(request.codeVerifier))
-                .put("codeChallenge",              jsonForNullable(request.codeVerifierChallenge))
-                .put("codeChallengeMethod",        jsonForNullable(request.codeVerifierChallengeMethod))
-                .put("additionalParameters",       jsonForMap(getAdditionalParamsForReturnedAuthorizationRequest(request)));
+            .put("responseType",               jsonForNullable(request.responseType))
+            .put("clientId",                   jsonForNullable(request.clientId))
+            .put("scope",                      jsonForNullable(request.scope))
+            .put("redirectUrl",                jsonForNullable(request.redirectUri == null ? null : request.redirectUri.toString()))
+            .put("state",                      jsonForNullable(request.state))
+            .put("nonce",                      jsonForNullable(request.nonce))
+            .put("codeVerifier",               jsonForNullable(request.codeVerifier))
+            .put("codeChallenge",              jsonForNullable(request.codeVerifierChallenge))
+            .put("codeChallengeMethod",        jsonForNullable(request.codeVerifierChallengeMethod))
+            .put("additionalParameters",       jsonForMap(getAdditionalParamsForReturnedAuthorizationRequest(request)));
     }
 
     private Map<String, String> getAdditionalParamsForReturnedAuthorizationRequest(AuthorizationRequest request) throws JSONException {
@@ -390,29 +390,29 @@ public class OIDCBasic extends CordovaPlugin {
     private JSONObject jsonForAuthorizationErrorResponse(AuthorizationException response, AuthorizationRequest request) throws JSONException {
         JSONObject respJSON = responseJSONForAuthorizationErrorResponse(response, request);
         return new JSONObject()
-                .put("type",         ERROR_RESPONSE)
-                .put("message",      respJSON.get("error"))
-                .put("details",      respJSON.get("errorDescription"))
-                .put("response",     respJSON);
+            .put("type",         ERROR_RESPONSE)
+            .put("message",      respJSON.get("error"))
+            .put("details",      respJSON.get("errorDescription"))
+            .put("response",     respJSON);
     }
 
     private JSONObject responseJSONForAuthorizationErrorResponse(AuthorizationException response, AuthorizationRequest request) throws JSONException {
         return new JSONObject()
-                .put("request",            jsonForNullable(jsonForReturnedAuthorizationRequest(request)))
-                .put("error",              jsonForNullable(response.error))
-                .put("errorDescription",   jsonForNullable(response.errorDescription))
-                .put("errorUrl",           jsonForNullable(response.errorUri == null ? null : response.errorUri.toString()))
-                // AppAuth-Android unfortunately doesn't expose state for error responses.
-                // Explicitly set to null (instead of just leaving undefined).
-                .put("state",              JSONObject.NULL);
+            .put("request",            jsonForNullable(jsonForReturnedAuthorizationRequest(request)))
+            .put("error",              jsonForNullable(response.error))
+            .put("errorDescription",   jsonForNullable(response.errorDescription))
+            .put("errorUrl",           jsonForNullable(response.errorUri == null ? null : response.errorUri.toString()))
+            // AppAuth-Android unfortunately doesn't expose state for error responses.
+            // Explicitly set to null (instead of just leaving undefined).
+            .put("state",              JSONObject.NULL);
     }
 
     private JSONObject jsonForInvalidAuthorizationErrorResponse(List<String> validationErrors) throws JSONException {
         String message = String.format("Invalid response: %s", TextUtils.join(", ", validationErrors));
         return new JSONObject()
-                .put("type",        INVALID_RESPONSE)
-                .put("message",     message)
-                .put("details",     message);
+            .put("type",        INVALID_RESPONSE)
+            .put("message",     message)
+            .put("details",     message);
     }
 
     private JSONObject jsonForNonErrorResponseAuthorizationException(AuthorizationException ex) throws JSONException {
@@ -457,10 +457,10 @@ public class OIDCBasic extends CordovaPlugin {
         LOG.d(LOG_TAG, "Preparing AppAuth end session request");
 
         EndSessionRequest endSessionRequest =
-                new EndSessionRequest.Builder(config)
-                        .setIdTokenHint(reqParams.getString(ID_TOKEN_HINT))
-                        .setPostLogoutRedirectUri(Uri.parse(reqParams.getString(POST_LOGOUT_REDIRECT_URL)))
-                        .build();
+            new EndSessionRequest.Builder(config)
+                .setIdTokenHint(reqParams.getString(ID_TOKEN_HINT))
+                .setPostLogoutRedirectUri(Uri.parse(reqParams.getString(POST_LOGOUT_REDIRECT_URL)))
+                .build();
 
         AuthorizationService authService = new AuthorizationService(cordova.getContext());
         launchExternalUserAgentFlow(new EndSessionRequestFlow(endSessionRequest, authService, callbackContext));
@@ -577,23 +577,23 @@ public class OIDCBasic extends CordovaPlugin {
     private JSONObject jsonForRequestValidationErrors(List<String> validationErrors) throws JSONException {
         String message = String.format("Request contained the following validation errors: %s", TextUtils.join(", ", validationErrors));
         return new JSONObject()
-                .put("type",       UNSENDABLE_REQUEST)
-                .put("message",    message)
-                .put("details",    message);
+            .put("type",       UNSENDABLE_REQUEST)
+            .put("message",    message)
+            .put("details",    message);
     }
 
     private JSONObject jsonForAuthorizationFlowAlreadyInProgress() throws JSONException {
         return new JSONObject()
-                .put("type",       UNSENDABLE_REQUEST)
-                .put("message",    "Cannot send this request b/c another authorization flow is already in progress.")
-                .put("details",    "Cannot send this request b/c another authorization flow is already in progress.");
+            .put("type",       UNSENDABLE_REQUEST)
+            .put("message",    "Cannot send this request b/c another authorization flow is already in progress.")
+            .put("details",    "Cannot send this request b/c another authorization flow is already in progress.");
     }
 
     private JSONObject standardJSONForException(Exception ex, String type) throws JSONException {
         return new JSONObject()
-                .put("type",      type)
-                .put("message",   ex.getMessage())
-                .put("details",   getStackTraceString(ex));
+            .put("type",      type)
+            .put("message",   ex.getMessage())
+            .put("details",   getStackTraceString(ex));
     }
 
     private Object jsonForNullable(Object nullable) {
